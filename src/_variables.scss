@@ -1,0 +1,14 @@
+
+$black: #000;
+$blackish: #29292c;
+
+$gray: #d6d9dc;
+$gray-lighter: #eee;
+
+$blacks: (
+    100: $black,
+    80: lighten($black, 20%),
+    60: lighten($black, 40%),
+    40: lighten($black, 60%),
+    20: lighten($black, 80%)
+)
