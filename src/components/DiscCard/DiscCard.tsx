@@ -40,10 +40,6 @@ export const DiscCard = observer((props: IDiscCardProps) => (
         <div className="discCard__discName">
             <span>{props.disc.name}</span>
         </div>
-
-        <div className="discCard__discName">
-            <span>{props.disc.plastic || "-"}</span>
-        </div>
     </div>
 ));
 
