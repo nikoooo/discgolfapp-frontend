@@ -2,12 +2,13 @@
   "name": "mobx-react-webpack-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.tsx",
   "scripts": {
-    "server-watch": "webpack-dev-server --hot",
-    "webpack-watch": "webpack --watch --mode development",
-    "start": "npm run webpack-watch & npm run server-watch",
-    "build": "webpack --mode production"
+    "start": "npm run build-dev & npm run server-watch",
+    "build-dev": "webpack --mode development --watch",
+    "build-prod": "webpack --mode production",
+    "server-watch": "webpack-dev-server --inline --hot --config ./webpack.config.js",
+    "webpack-watch": "webpack --watch --mode development"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/nikoooo/mobx-react-webpack-boilerplate#readme",
   "devDependencies": {
+    "@types/webpack-env": "^1.13.6",
     "awesome-typescript-loader": "^5.2.0",
     "css-loader": "^1.0.0",
     "node-sass": "^4.9.2",
@@ -32,12 +34,15 @@
     "typescript": "^2.9.2",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "webpack-env": "^0.8.0"
   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
+    "clean-webpack-plugin": "^0.1.19",
+    "html-webpack-plugin": "^3.2.0",
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.3",
     "react": "^16.4.1",

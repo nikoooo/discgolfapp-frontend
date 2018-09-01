@@ -9,3 +9,12 @@ ReactDOM.render(
     <DiscList rootStore={rootStore} />,
     document.getElementById("app-root"),
 );
+
+if (module.hot) {
+    module.hot.accept("./app.tsx", () => {
+        ReactDOM.render(
+            <DiscList rootStore={rootStore} />,
+            document.getElementById("app-root"),
+        );
+    });
+}

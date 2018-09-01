@@ -1,0 +1,33 @@
+@import '../../variables';
+
+$row-height: 40px;
+
+.dg-Table {
+    width:100%;
+    border-spacing: 0;
+    font-family: 'Montserrat', sans-serif;
+
+    .table__head {
+        height: $row-height;
+        font-weight: bold;
+
+        .row__cell {
+
+        }
+    }
+    
+    .table__row {
+        height: $row-height;
+
+        &:nth-child(even) {
+            background-color: #eef8ff;
+        }
+
+        .row__cell {
+        }
+    }
+
+    .table__cell {
+        padding: 0 0 0 10px;
+    }
+}

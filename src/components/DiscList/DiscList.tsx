@@ -8,8 +8,16 @@ import { action, computed } from "../../../node_modules/mobx";
 import { Disc } from "../../models/Disc";
 import { RootStore } from "../../stores/rootStore";
 import { DiscCard } from "../DiscCard/DiscCard";
+import { Table } from "../Table/Table";
 
 import "./DiscList.scss";
+
+const test = [
+    { a: "aa", b: "bb" },
+    { a: "aa", b: "bb" },
+    { a: "aa", b: "bb" },
+    { a: "aa", b: "bb" },
+];
 
 @observer
 export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
@@ -21,8 +29,8 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
     @computed public get filteredList() {
         const { discs, searchTerm } = this.props.rootStore.discStore;
         return discs.filter(
-            (d: Disc) =>    d.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-                            d.company.toLowerCase().includes(searchTerm.toLowerCase()),
+            (d: Disc) => d.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+                d.company.toLowerCase().includes(searchTerm.toLowerCase()),
         );
     }
     @action("Set searchTerm")
@@ -34,55 +42,59 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
         const { deleteSelectedDiscs, selectedDiscs } = this.props.rootStore.discStore;
 
         return (
-            <div className="components-discList">
-                <div>
-                    <FormControl className="discList__search">
-                        <InputLabel htmlFor="name-simple">Search</InputLabel>
-                        <Input
-                            id="name-simple"
-                            onChange={this.onSearchTermChanged}
-                        />
-                    </FormControl>
+            <React.Fragment>
+                <Table
+                    items={selectedDiscs}
+                    columnKeys={["name", "plastic", "company", "speed", "glide", "turn", "fade"]}
+                    onRenderCell={this.onRenderCell}
+                />
 
-                    {!!selectedDiscs.length &&
-                        <Button color="secondary" onClick={deleteSelectedDiscs}>
-                            Delete
-                        </Button>
-                    }
-
+                <div className="components-discList">
                     <div>
-                        <ul>
-                            {this.props.rootStore.discStore.selectedDiscs.map(
-                                (sd, i) => <li key={i}>{sd.name}</li>,
-                            )}
-                        </ul>
-                    </div>
+                        <FormControl className="discList__search">
+                            <InputLabel htmlFor="name-simple">Search</InputLabel>
+                            <Input
+                                id="name-simple"
+                                onChange={this.onSearchTermChanged}
+                            />
+                        </FormControl>
 
-                    <div className="discList__listwrapper">
-                        {this.filteredList
-                            .slice(0, 300).map((d, i) => (
-                                <DiscCard
-                                    key={i}
-                                    onClick={this.itemClick}
-                                    selected={this.isSelected(d)}
-                                    disc={{
-                                        _id: d._id,
-                                        company: d.company,
-                                        fade: d.fade,
-                                        glide: d.glide,
-                                        imgUrl: d.imgUrl,
-                                        name: d.name,
-                                        plastic: d.plastic,
-                                        speed: d.speed,
-                                        turn: d.turn,
-                                        type: d.type,
-                                    }}
-                                />
-                        ))}
+                        {!!selectedDiscs.length &&
+                            <Button color="secondary" onClick={deleteSelectedDiscs}>
+                                Delete
+                            </Button>
+                        }
+
+                        <div className="discList__listwrapper">
+                            {this.filteredList
+                                .slice(0, 300).map((d, i) => (
+                                    <DiscCard
+                                        key={i}
+                                        onClick={this.itemClick}
+                                        selected={this.isSelected(d)}
+                                        disc={{
+                                            _id: d._id,
+                                            company: d.company,
+                                            fade: d.fade,
+                                            glide: d.glide,
+                                            imgUrl: d.imgUrl,
+                                            name: d.name,
+                                            plastic: d.plastic,
+                                            speed: d.speed,
+                                            turn: d.turn,
+                                            type: d.type,
+                                        }}
+                                    />
+                                ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
+    }
+
+    private onRenderCell = (item: string): JSX.Element | string => {
+        return item;
     }
 
     private itemClick = (disc: Disc): void => {
