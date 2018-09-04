@@ -1,4 +1,5 @@
 import * as React from "react";
+import { stringUtils } from "../../utils/stringUtils";
 
 import "./Table.scss";
 
@@ -20,12 +21,12 @@ export class Table<T, K extends keyof T> extends React.Component<ITableProps<T, 
                         {columnKeys !== undefined && columnKeys.length &&
                             columnKeys.map((ck, i) => (
                                 <td key={i} className="table__cell head__cell">
-                                    {ck.toString()}
+                                    {stringUtils.capitalize(ck.toString())}
                                 </td>
                             ))
                         }
                     </tr>
-                    {items !== undefined && items.length &&
+                    {!!items && !!items.length &&
                     items.map((item, i1) => (
                         <tr key={i1} className="table__row">
                             {columnKeys.map((key, i2) => (

@@ -60,6 +60,8 @@ function getCompanyImagePathByCompany(company: string): string {
             return path.replace("{0}", "latitude64");
         case "Millenium":
             return path.replace("{0}", "millenniumdiscs");
+        case "MVP Disc Sports":
+            return path.replace("{0}", "mvpdiscsports");
         case "Kastaplast":
             return path.replace("{0}", "kastaplast");
         case "Prodigy":
@@ -71,5 +73,4 @@ function getCompanyImagePathByCompany(company: string): string {
         default:
             return "";
     }
-    return "";
 }

@@ -12,13 +12,6 @@ import { Table } from "../Table/Table";
 
 import "./DiscList.scss";
 
-const test = [
-    { a: "aa", b: "bb" },
-    { a: "aa", b: "bb" },
-    { a: "aa", b: "bb" },
-    { a: "aa", b: "bb" },
-];
-
 @observer
 export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
 

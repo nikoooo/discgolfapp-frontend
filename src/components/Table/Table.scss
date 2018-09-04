@@ -3,16 +3,18 @@
 $row-height: 40px;
 
 .dg-Table {
-    width:100%;
+    width: 100%;
     border-spacing: 0;
     font-family: 'Montserrat', sans-serif;
+    border: 1px solid #E6E6E6;
 
     .table__head {
         height: $row-height;
-        font-weight: bold;
-
-        .row__cell {
-
+        
+        .head__cell {
+            font-size: 12px;
+            font-weight: bold;
+            color: #0000008a
         }
     }
     
@@ -20,7 +22,8 @@ $row-height: 40px;
         height: $row-height;
 
         &:nth-child(even) {
-            background-color: #eef8ff;
+            //background-color: #eef8ff;
+            background-color: #F7F7F7;
         }
 
         .row__cell {
@@ -29,5 +32,8 @@ $row-height: 40px;
 
     .table__cell {
         padding: 0 0 0 10px;
+        border-bottom: 1px solid #E6E6E6;
+        border-right: 1px solid #E6E6E6;
+        font-size: 14px;
     }
 }
