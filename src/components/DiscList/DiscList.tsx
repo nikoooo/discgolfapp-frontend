@@ -3,8 +3,8 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Button } from "../../../node_modules/@material-ui/core";
-import { action, computed } from "../../../node_modules/mobx";
+import { Button } from "@material-ui/core";
+import { action, computed } from "mobx";
 import { Disc } from "../../models/Disc";
 import { RootStore } from "../../stores/rootStore";
 import { DiscCard } from "../DiscCard/DiscCard";
@@ -43,43 +43,41 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
                 />
 
                 <div className="components-discList">
-                    <div>
-                        <FormControl className="discList__search">
-                            <InputLabel htmlFor="name-simple">Search</InputLabel>
-                            <Input
-                                id="name-simple"
-                                onChange={this.onSearchTermChanged}
-                            />
-                        </FormControl>
+                    <FormControl className="discList__search">
+                        <InputLabel htmlFor="name-simple">Search</InputLabel>
+                        <Input
+                            id="name-simple"
+                            onChange={this.onSearchTermChanged}
+                        />
+                    </FormControl>
 
-                        {!!selectedDiscs.length &&
-                            <Button color="secondary" onClick={deleteSelectedDiscs}>
-                                Delete
-                            </Button>
-                        }
+                    {!!selectedDiscs.length &&
+                        <Button color="secondary" onClick={deleteSelectedDiscs}>
+                            Delete
+                        </Button>
+                    }
 
-                        <div className="discList__listwrapper">
-                            {this.filteredList
-                                .slice(0, 300).map((d, i) => (
-                                    <DiscCard
-                                        key={i}
-                                        onClick={this.itemClick}
-                                        selected={this.isSelected(d)}
-                                        disc={{
-                                            _id: d._id,
-                                            company: d.company,
-                                            fade: d.fade,
-                                            glide: d.glide,
-                                            imgUrl: d.imgUrl,
-                                            name: d.name,
-                                            plastic: d.plastic,
-                                            speed: d.speed,
-                                            turn: d.turn,
-                                            type: d.type,
-                                        }}
-                                    />
-                                ))}
-                        </div>
+                    <div className="discList__listwrapper">
+                        {this.filteredList
+                            .slice(0, 300).map((d, i) => (
+                                <DiscCard
+                                    key={i}
+                                    onClick={this.itemClick}
+                                    selected={this.isSelected(d)}
+                                    disc={{
+                                        _id: d._id,
+                                        company: d.company,
+                                        fade: d.fade,
+                                        glide: d.glide,
+                                        imgUrl: d.imgUrl,
+                                        name: d.name,
+                                        plastic: d.plastic,
+                                        speed: d.speed,
+                                        turn: d.turn,
+                                        type: d.type,
+                                    }}
+                                />
+                            ))}
                     </div>
                 </div>
             </React.Fragment>

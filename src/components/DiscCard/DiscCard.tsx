@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "../../../node_modules/mobx-react";
+import { observer } from "mobx-react";
 import { Disc } from "../../models/Disc";
 
 import "./DiscCard.scss";
@@ -12,8 +12,8 @@ interface IDiscCardProps {
 
 export const DiscCard = observer((props: IDiscCardProps) => (
     <div
-        className={"components-discCard" + (props.selected ? " selected" : "")}
-        onClick={props.onClick.bind(null, props.disc)}
+        className={"dg-discCard" + (props.selected ? " selected" : "")}
+        onClick={props.onClick ? props.onClick.bind(null, props.disc) : undefined}
     >
         <div className="discCard__companyName">
             <span>{props.disc.company}</span>
