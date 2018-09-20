@@ -1,0 +1,35 @@
+@import "../../utils";
+@import "../../variables";
+
+$card-width: 222px;
+$card-margin: 10px;
+$toolbar-margin: 10px;
+
+.dg-discGrid {
+    display: block;
+    @include flexCenterRow;
+    
+    .discGrid__wrapper--inline {
+        @for $i from 1 through 8 {
+            $grid-width: ($card-width * $i);
+            $grid-with-padding-width: $grid-width + ($body-padding * 2) + ($card-margin * 2);
+
+            @include mediaMin(calc(#{$grid-with-padding-width})) {
+                width: calc(#{$grid-width});
+            }
+        }
+
+        .discGrid__toolbar {
+            @include clearfix;
+            margin: 0 $toolbar-margin;
+
+            .discViewsPivot__toggler {
+                float: right;
+            }
+        }
+    }
+
+    .dg-discCard {
+        margin: 10px;
+    }
+}
