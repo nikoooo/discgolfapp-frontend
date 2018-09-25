@@ -31,7 +31,7 @@ export class DiscGrid extends React.Component<IProps, {}> {
                                 selected={!!isSelected ? isSelected(d) : false}
                                 disc={{
                                     _id: d._id,
-                                    company: d.company,
+                                    manufacturer: d.manufacturer,
                                     fade: d.fade,
                                     glide: d.glide,
                                     imgUrl: d.imgUrl,

@@ -16,7 +16,7 @@ export const DiscCard = observer((props: IDiscCardProps) => (
         onClick={props.onClick ? props.onClick.bind(null, props.disc) : undefined}
     >
         <div className="discCard__companyName">
-            <span>{props.disc.company}</span>
+            <span>{props.disc.manufacturer}</span>
         </div>
 
         <div className="discCard__img">
@@ -27,7 +27,7 @@ export const DiscCard = observer((props: IDiscCardProps) => (
         </div>
 
         <div className="discCard__manufacturer">
-            <img src={getCompanyImagePathByCompany(props.disc.company)} />
+            <img src={getManufacturerImagePath(props.disc.manufacturer)} />
         </div>
 
         <div className="discCard__stats">
@@ -43,9 +43,9 @@ export const DiscCard = observer((props: IDiscCardProps) => (
     </div>
 ));
 
-function getCompanyImagePathByCompany(company: string): string {
+function getManufacturerImagePath(manufacturer: string): string {
     const path = "/src/assets/images/manufacturers/{0}.jpg";
-    switch (company) {
+    switch (manufacturer) {
         case "DGA":
             return path.replace("{0}", "dga");
         case "Discmania":

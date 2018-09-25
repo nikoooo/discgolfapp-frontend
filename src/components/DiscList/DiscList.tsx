@@ -23,7 +23,7 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
         const { discs, searchTerm } = this.props.rootStore.discStore;
         return discs.filter(
             (d: Disc) => d.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-                d.company.toLowerCase().includes(searchTerm.toLowerCase()),
+                d.manufacturer.toLowerCase().includes(searchTerm.toLowerCase()),
         );
     }
     @action("Set searchTerm")
@@ -38,7 +38,7 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
             <React.Fragment>
                 <Table
                     items={selectedDiscs}
-                    columnKeys={["name", "plastic", "company", "speed", "glide", "turn", "fade"]}
+                    columnKeys={["name", "plastic", "manufacturer", "speed", "glide", "turn", "fade"]}
                     onRenderCell={this.onRenderCell}
                 />
 
@@ -66,7 +66,7 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
                                     selected={this.isSelected(d)}
                                     disc={{
                                         _id: d._id,
-                                        company: d.company,
+                                        manufacturer: d.manufacturer,
                                         fade: d.fade,
                                         glide: d.glide,
                                         imgUrl: d.imgUrl,

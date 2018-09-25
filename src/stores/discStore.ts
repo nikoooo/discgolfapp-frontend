@@ -7,8 +7,10 @@ export class DiscStore {
     @observable public discs: Disc[] = [];
     @observable public selectedDiscs: Disc[] = [];
     @observable public searchTerm: string = "";
+
+    // TODO: move to /shared/clients.ts
     private dc: DiscClient = new DiscClient({
-        apiUrl: "http://localhost:8000/api/discs",
+        apiUrl: "http://192.168.1.134:8000/api/discs" // "http://localhost:8000/api/discs",
     });
 
     constructor(rootStore: RootStore) {
@@ -18,7 +20,7 @@ export class DiscStore {
     @computed public get searchedDiscs() {
         return this.discs.filter(
             (d: Disc) => d.name.toLowerCase().includes(this.searchTerm.toLocaleLowerCase()) ||
-                d.company.toLowerCase().includes(this.searchTerm.toLowerCase()),
+                d.manufacturer.toLowerCase().includes(this.searchTerm.toLowerCase()),
         );
     }
 
@@ -35,7 +37,7 @@ export class DiscStore {
 
     public createDisc() {
         this.dc.createDisc(new Disc({
-            company: "Niko",
+            manufacturer: "Niko",
             fade: 1,
             glide: 1,
             imgUrl: "",
@@ -213,7 +215,7 @@ export class DiscStore {
         this.discs.forEach((disc: Disc) => {
             let extracted = false;
             plastics.forEach((plastic) => {
-                if (disc.company === plastic.company && !extracted) {
+                if (disc.manufacturer === plastic.company && !extracted) {
                     const discName = disc.name.toLowerCase().replace("  ", " ");
                     const plasticName = plastic.name.toLowerCase();
                     const indexOf = discName.indexOf(plasticName);

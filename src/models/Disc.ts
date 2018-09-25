@@ -1,5 +1,5 @@
 export interface IDisc {
-    company?: string;
+    manufacturer?: string;
     fade?: number;
     glide?: number;
     imgUrl?: string;
@@ -13,7 +13,7 @@ export interface IDisc {
 
 export class Disc implements IDisc {
 
-    public company?: string;
+    public manufacturer?: string;
     public fade?: number;
     public glide?: number;
     public _id?: string;
@@ -25,7 +25,7 @@ export class Disc implements IDisc {
     public type?: string;
 
     constructor(disc: IDisc) {
-        this.company = disc.company;
+        this.manufacturer = disc.manufacturer;
         this.fade = disc.fade;
         this.glide = disc.glide;
         this.imgUrl = disc.imgUrl;

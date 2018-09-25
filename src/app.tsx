@@ -1,25 +1,28 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { DiscList } from "./components/DiscList/DiscList";
-import { Home } from "./pages/Home/Home";
 import { RootStore } from "./stores/rootStore";
+import { Provider } from "../node_modules/mobx-react";
+import { Layout } from "./layout";
+
+export interface InjectedProps {
+    rootStore: RootStore;
+}
 
 const rootStore = new RootStore();
 
 ReactDOM.render(
-    <DiscList rootStore={rootStore} />,
-    document.getElementById("app-root"),
-);
-
-ReactDOM.render(
-    <Home rootStore={rootStore} />,
+    <Provider rootStore={rootStore}>
+        <Layout />
+    </Provider>,
     document.getElementById("app-root"),
 );
 
 if (module.hot) {
     module.hot.accept("./app.tsx", () => {
         ReactDOM.render(
-            <Home rootStore={rootStore} />,
+            <Provider rootStore={rootStore}>
+                <Layout />
+            </Provider>,
             document.getElementById("app-root"),
         );
     });
