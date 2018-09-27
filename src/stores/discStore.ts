@@ -51,7 +51,7 @@ export class DiscStore {
 
     public getDiscs() {
         this.dc.getDiscs()
-            .then((discs) => {
+            .then((discs: Disc[]) => {
                 if (discs) {
                     this.discs = discs;
                     // this.deleteAllDiscs();
