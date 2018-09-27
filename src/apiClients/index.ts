@@ -1,1 +1,1 @@
-export * from "./discClient";
+export * from "./DiscClient";
