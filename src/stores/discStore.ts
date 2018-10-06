@@ -10,7 +10,7 @@ export class DiscStore {
 
     // TODO: move to /shared/clients.ts
     private dc: DiscClient = new DiscClient({
-        apiUrl: "http://192.168.1.134:8000/api/discs" // "http://localhost:8000/api/discs",
+        apiUrl: "http://192.168.1.134:8001/api/discs" // "http://localhost:8000/api/discs",
     });
 
     constructor(rootStore: RootStore) {
