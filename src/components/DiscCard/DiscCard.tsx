@@ -21,11 +21,7 @@ export const DiscCard = observer((props: IDiscCardProps) => (
 
         <div className="discCard__img">
             <img
-                src={
-                    "src/assets/images/discs/" +
-                    props.disc.imgUrl.split("/")[5] + "/" +
-                    props.disc.imgUrl.split("/")[6]
-                }
+                src={"src/assets/images/" + props.disc.imgUrl }
                 alt="placeholder"
             />
         </div>
