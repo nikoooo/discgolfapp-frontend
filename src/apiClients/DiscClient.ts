@@ -31,8 +31,9 @@ export class DiscClient implements IClient {
                 return res.json();
             }).then((json: Disc[]) => {
                 return json;
-            }).catch((ex) => {
-                console.log("parsing failed", ex);
+            }).catch((e) => {
+                console.log("parsing failed", e);
+                throw e;
             });
     }
 

@@ -10,13 +10,15 @@ import {
 import { Disc } from "../../models/Disc";
 import { DiscViewsPivot } from "../../components/DiscsViewsPivot/DiscsViewsPivot";
 import { InjectedProps } from "../../app";
+import { RouteComponentProps } from "react-router";
 
 import "./Home.scss";
 
+type Props = InjectedProps & RouteComponentProps<{ discIds: string }>;
+
 @inject("rootStore")
 @observer
-export class Home extends React.Component<{}, {}> {
-
+export class Home extends React.Component<Props, {}> {
   private get injected(): InjectedProps {
     return this.props as InjectedProps;
   }
@@ -46,7 +48,7 @@ export class Home extends React.Component<{}, {}> {
             </FormControl>
           </Grid>
         </Grid>
-        
+
         <DiscViewsPivot
           discs={searchedDiscs}
           isSelected={this.isSelected}

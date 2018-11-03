@@ -1,20 +1,23 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, reaction } from "mobx";
 import { DiscClient } from "../apiClients";
 import { Disc } from "../models/Disc";
-import { RootStore } from "./rootStore";
+import { RootStore } from "./";
 
 export class DiscStore {
     @observable public discs: Disc[] = [];
     @observable public selectedDiscs: Disc[] = [];
     @observable public searchTerm: string = "";
 
+    private rootStore: RootStore;
+
     // TODO: move to /shared/clients.ts
     private dc: DiscClient = new DiscClient({
-        apiUrl: "http://192.168.1.134:8001/api/discs" //  "http://localhost:8000/api/discs",
+        apiUrl: "http://155.4.48.209/api/discs",
     });
 
     constructor(rootStore: RootStore) {
-        // todo
+        this.rootStore = rootStore;
+        this.reactOnSelectedForUrl();
     }
 
     @computed public get searchedDiscs() {
@@ -49,6 +52,7 @@ export class DiscStore {
         }));
     }
 
+    @action("GetDiscs")
     public getDiscs() {
         this.dc.getDiscs()
             .then((discs: Disc[]) => {
@@ -58,6 +62,31 @@ export class DiscStore {
                     // this.deleteDuplicates();
                     this.extractPlastics();
                 }
+            },
+            _ => {
+                let imgs = ["discs/innova/dx_aviar_b.jpg", "discs/innova/dx_valkyrie_b.jpg", "discs/discraft/z-buzzz_b.jpg"];
+
+                let discs: Disc[] = [
+                    new Disc({}),
+                    new Disc({}),
+                    new Disc({}),
+                    new Disc({})
+                ];
+
+                const mappedDiscs = discs.map((_, i) => {
+                    return new Disc({
+                        _id: i.toString(),
+                        imgUrl : imgs[Math.floor(3 - (3 * Math.random()))],
+                        manufacturer: "Innova",
+                        name: "fake",
+                        plastic: "best",
+                        speed: Math.floor(Math.random() * 10),
+                        turn: Math.floor(Math.random() * 10),
+                        fade: Math.floor(Math.random() * 10),
+                        glide: Math.floor(Math.random() * 10)
+                    });
+                });
+                this.discs = mappedDiscs;
             });
     }
 
@@ -80,24 +109,6 @@ export class DiscStore {
     }
 
     // DB Management
-
-    private deleteAllDiscs = (): void => {
-        this.discs.forEach((d: Disc) => {
-            this.dc.deleteDisc(d._id);
-        });
-    }
-
-    private deleteDuplicates() {
-        this.discs.forEach((d1: Disc) => {
-            this.discs.forEach((d2: Disc) => {
-                if (d1._id !== d2._id && d1.name === d2.name) {
-                    this.deleteDisc(d1._id);
-                    console.log("Deleted name: " + d1.name);
-                }
-            });
-        });
-    }
-
     private extractPlastics() {
         // Innova
         const plastics = [
@@ -240,4 +251,13 @@ export class DiscStore {
         });
     }
 
+    private reactOnSelectedForUrl = (): void => {
+        reaction(
+            () => this.selectedDiscs.map(d => d._id),
+            (discIds: string[]) => {
+                const pathString = discIds.join(",");
+                this.rootStore.appStore.history.replace("/discs/" + pathString);
+            }
+        )
+    }
 }
