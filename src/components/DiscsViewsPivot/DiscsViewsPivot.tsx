@@ -59,7 +59,7 @@ export class DiscViewsPivot extends React.Component<IDiscsViewsPivotProps, {}> {
           (
             <Table
               items={discs.slice(0, 30)}
-              columnKeys={["model", "manufacturer", "speed", "glide", "turn", "fade"]}
+              columnKeys={["model", "speed", "glide", "turn", "fade"]}
               onRenderToolbar={
                 this.activeType === "table" ? this.onRenderToolbar : undefined
               }
