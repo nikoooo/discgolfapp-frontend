@@ -1,13 +1,13 @@
-import * as React from "react";
-import { action, observable } from "mobx";
-import { observer } from "../../../node_modules/mobx-react";
-
-import { Disc } from "../../models/Disc";
-import { DiscGrid } from "../DiscGrid/DiscGrid";
-
-import ListIcon from '@material-ui/icons/List';
 import GridOnIcon from '@material-ui/icons/GridOn';
+import ListIcon from '@material-ui/icons/List';
+import { action, observable } from "mobx";
+import * as React from "react";
+import { observer } from "../../../node_modules/mobx-react";
+import { Disc } from "../../../../discgolfapp-backend/src/entity/Disc";
+import { DiscGrid } from "../DiscGrid/DiscGrid";
 import { Table } from "../Table/Table";
+
+
 
 type ViewType = "grid" | "table";
 
@@ -59,7 +59,7 @@ export class DiscViewsPivot extends React.Component<IDiscsViewsPivotProps, {}> {
           (
             <Table
               items={discs.slice(0, 30)}
-              columnKeys={["name", "manufacturer", "speed", "glide", "turn", "fade"]}
+              columnKeys={["model", "manufacturer", "speed", "glide", "turn", "fade"]}
               onRenderToolbar={
                 this.activeType === "table" ? this.onRenderToolbar : undefined
               }

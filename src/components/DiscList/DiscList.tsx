@@ -1,16 +1,16 @@
+import { Button } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
+import { action, computed } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Button } from "@material-ui/core";
-import { action, computed } from "mobx";
-import { Disc } from "../../models/Disc";
+import { Disc } from "../../../../discgolfapp-backend/src/entity/Disc";
 import { RootStore } from "../../stores/rootStore";
 import { DiscCard } from "../DiscCard/DiscCard";
 import { Table } from "../Table/Table";
-
 import "./DiscList.scss";
+
 
 @observer
 export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
@@ -22,10 +22,11 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
     @computed public get filteredList() {
         const { discs, searchTerm } = this.props.rootStore.discStore;
         return discs.filter(
-            (d: Disc) => d.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-                d.manufacturer.toLowerCase().includes(searchTerm.toLowerCase()),
+            (d: Disc) => d.model.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+                d.manufacturer.name.toLowerCase().includes(searchTerm.toLowerCase()),
         );
     }
+
     @action("Set searchTerm")
     public onSearchTermChanged = (event: any) => {
         this.props.rootStore.discStore.searchTerm = event.target.value;
@@ -38,7 +39,7 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
             <React.Fragment>
                 <Table
                     items={selectedDiscs}
-                    columnKeys={["name", "plastic", "manufacturer", "speed", "glide", "turn", "fade"]}
+                    columnKeys={["model", "plastic", "manufacturer", "speed", "glide", "turn", "fade"]}
                     onRenderCell={this.onRenderCell}
                 />
 
@@ -64,18 +65,7 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
                                     key={i}
                                     onClick={this.itemClick}
                                     selected={this.isSelected(d)}
-                                    disc={{
-                                        _id: d._id,
-                                        manufacturer: d.manufacturer,
-                                        fade: d.fade,
-                                        glide: d.glide,
-                                        imgUrl: d.imgUrl,
-                                        name: d.name,
-                                        plastic: d.plastic,
-                                        speed: d.speed,
-                                        turn: d.turn,
-                                        type: d.type,
-                                    }}
+                                    disc={d}
                                 />
                             ))}
                     </div>
@@ -94,7 +84,7 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
             removeDiscFromSelected,
             selectedDiscs,
         } = this.props.rootStore.discStore;
-        if (selectedDiscs.some((d) => d._id === disc._id)) {
+        if (selectedDiscs.some((d) => d.id === disc.id)) {
             removeDiscFromSelected(disc);
         } else {
             addDiscToSelected(disc);
@@ -103,7 +93,7 @@ export class DiscList extends React.Component<{ rootStore: RootStore }, {}> {
 
     private isSelected = (disc: Disc): boolean => {
         return this.props.rootStore.discStore.selectedDiscs.some(
-            (d: Disc) => d._id === disc._id,
+            (d: Disc) => d.id === disc.id,
         );
     }
 
