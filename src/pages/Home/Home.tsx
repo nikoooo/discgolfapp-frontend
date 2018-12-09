@@ -7,16 +7,18 @@ import {
   Input,
   InputLabel
 } from "@material-ui/core";
-import { Disc } from "../../models/Disc";
+import { Disc } from "../../../../discgolfapp-backend/src/entity/Disc";
 import { DiscViewsPivot } from "../../components/DiscsViewsPivot/DiscsViewsPivot";
 import { InjectedProps } from "../../app";
+import { RouteComponentProps } from "react-router";
 
 import "./Home.scss";
 
+type Props = InjectedProps & RouteComponentProps<{ discIds: string }>;
+
 @inject("rootStore")
 @observer
-export class Home extends React.Component<{}, {}> {
-
+export class Home extends React.Component<Props, {}> {
   private get injected(): InjectedProps {
     return this.props as InjectedProps;
   }
@@ -46,7 +48,7 @@ export class Home extends React.Component<{}, {}> {
             </FormControl>
           </Grid>
         </Grid>
-        
+
         <DiscViewsPivot
           discs={searchedDiscs}
           isSelected={this.isSelected}
@@ -62,7 +64,7 @@ export class Home extends React.Component<{}, {}> {
       removeDiscFromSelected,
       selectedDiscs,
     } = this.injected.rootStore.discStore;
-    if (selectedDiscs.some((d) => d._id === disc._id)) {
+    if (selectedDiscs.some((d) => d.id === disc.id)) {
       removeDiscFromSelected(disc);
     } else {
       addDiscToSelected(disc);
@@ -71,7 +73,7 @@ export class Home extends React.Component<{}, {}> {
 
   private isSelected = (disc: Disc): boolean => {
     return this.injected.rootStore.discStore.selectedDiscs.some(
-      (d: Disc) => d._id === disc._id,
+      (d: Disc) => d.id === disc.id,
     );
   }
 }

@@ -1,7 +1,6 @@
-import * as React from "react";
 import { observer } from "mobx-react";
-import { Disc } from "../../models/Disc";
-
+import * as React from "react";
+import { Disc } from "../../../../discgolfapp-backend/src/entity/Disc";
 import "./DiscCard.scss";
 
 interface IDiscCardProps {
@@ -16,18 +15,18 @@ export const DiscCard = observer((props: IDiscCardProps) => (
         onClick={props.onClick ? props.onClick.bind(null, props.disc) : undefined}
     >
         <div className="discCard__companyName">
-            <span>{props.disc.manufacturer}</span>
+            <span>{props.disc.manufacturer.name}</span>
         </div>
 
         <div className="discCard__img">
             <img
-                src={"src/assets/images/" + props.disc.imgUrl }
+                src={/*"/src/assets/images/discs/" + */props.disc.imgPath}
                 alt="placeholder"
             />
         </div>
 
         <div className="discCard__manufacturer">
-            <img src={getManufacturerImagePath(props.disc.manufacturer)} />
+            <img src={getManufacturerImagePath(props.disc.manufacturer.name)} />
         </div>
 
         <div className="discCard__stats">
@@ -38,7 +37,7 @@ export const DiscCard = observer((props: IDiscCardProps) => (
         </div>
 
         <div className="discCard__discName">
-            <span>{props.disc.name}</span>
+            <span>{props.disc.model}</span>
         </div>
     </div>
 ));

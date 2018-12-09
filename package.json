@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/nikoooo/mobx-react-webpack-boilerplate#readme",
   "devDependencies": {
+    "@types/react": "^16.4.18",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-router-dom": "^4.3.1",
     "@types/webpack-env": "^1.13.6",
     "awesome-typescript-loader": "^5.2.0",
     "css-loader": "^1.0.0",
@@ -37,15 +40,14 @@
     "webpack-env": "^0.8.0"
   },
   "dependencies": {
-    "@material-ui/core": "^1.4.1",
+    "@material-ui/core": "^3.2.2",
     "@material-ui/icons": "^3.0.1",
-    "@types/react": "^16.4.6",
-    "@types/react-dom": "^16.0.6",
     "clean-webpack-plugin": "^0.1.19",
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
     "whatwg-fetch": "^2.0.4"
   }
 }

@@ -1,9 +1,9 @@
-import * as React from "react";
-import { DiscCard } from "../DiscCard/DiscCard";
-import { Disc } from "../../models/Disc";
 import { observer } from "mobx-react";
-
+import * as React from "react";
+import { Disc } from "../../../../discgolfapp-backend/src/entity/Disc";
+import { DiscCard } from "../DiscCard/DiscCard";
 import "./DiscGrid.scss";
+
 
 interface IProps {
     discs?: Disc[];
@@ -29,18 +29,7 @@ export class DiscGrid extends React.Component<IProps, {}> {
                                 key={i}
                                 onClick={onDiscClick}
                                 selected={!!isSelected ? isSelected(d) : false}
-                                disc={{
-                                    _id: d._id,
-                                    manufacturer: d.manufacturer,
-                                    fade: d.fade,
-                                    glide: d.glide,
-                                    imgUrl: d.imgUrl,
-                                    name: d.name,
-                                    plastic: d.plastic,
-                                    speed: d.speed,
-                                    turn: d.turn,
-                                    type: d.type,
-                                }}
+                                disc={d}
                             />
                         ))}
                 </div>

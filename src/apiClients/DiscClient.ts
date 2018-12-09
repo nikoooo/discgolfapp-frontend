@@ -1,5 +1,5 @@
 import "whatwg-fetch";
-import { Disc } from "../models/Disc";
+import { Disc } from "../../../discgolfapp-backend/src/entity/Disc";
 import { IClient } from "./IClient";
 
 export class DiscClient implements IClient {
@@ -19,20 +19,21 @@ export class DiscClient implements IClient {
         });
     }
 
-    public deleteDisc(id: string): Promise<Response> {
+    public deleteDisc(id: number): Promise<Response> {
         return fetch(this.apiUrl + "/" + id, {
             method: "DELETE",
         });
     }
 
-    public getDiscs(): Promise<void | Disc[]> {
+    public getDiscs(): Promise<Disc[]> {
         return fetch(this.apiUrl)
             .then((res: any) => {
                 return res.json();
             }).then((json: Disc[]) => {
                 return json;
-            }).catch((ex) => {
-                console.log("parsing failed", ex);
+            }).catch((e) => {
+                console.log("parsing failed", e);
+                throw e;
             });
     }
 
